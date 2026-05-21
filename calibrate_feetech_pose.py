@@ -59,7 +59,7 @@ def torque_for_motor(motor_id, default_torque):
         return 0
     if motor_id in (6,7,8,9):
         return  100
-    return default_torque
+    return 100
 
 
 def capture_id11_range(controller, motor_ids):
@@ -99,11 +99,11 @@ def capture_id11_range(controller, motor_ids):
 
 def main():
     parser = argparse.ArgumentParser(description="Calibrate Feetech servos and capture zero positions")
-    parser.add_argument("--port", type=str, default=None, help="Serial port (e.g. COM4 or /dev/ttyUSB0). If omitted, controller may auto-detect")
+    parser.add_argument("--port", type=str, default="/dev/ttyCH341USB0", help="Serial port (e.g. COM4 or /dev/ttyUSB0). If omitted, controller may auto-detect")
     parser.add_argument("--baud", type=int, default=rt_cfg.BAUDRATE, help="Baudrate (default from rt_config)")
     parser.add_argument("--motors", type=str, default=','.join(map(str, rt_cfg.EXPECTED_MOTOR_IDS)), help="Comma-separated motor IDs to calibrate (default from rt_config.EXPECTED_MOTOR_IDS)")
     parser.add_argument("--exclude", type=str, default='', help="Comma-separated motor IDs to exclude from current mode (optional)")
-    parser.add_argument("--torque", type=int, default=200, help="Holding torque/current command to apply in current mode (units per Feetech API)")
+    parser.add_argument("--torque", type=int, default=100, help="Holding torque/current command to apply in current mode (units per Feetech API)")
     parser.add_argument("--output", type=str, default="feetech_calibration.json", help="Output JSON file path")
 
     args = parser.parse_args()

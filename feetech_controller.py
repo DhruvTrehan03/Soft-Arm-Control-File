@@ -19,16 +19,12 @@ import os
 
 # Add current directory to path for imports
 current_dir = os.path.dirname(os.path.abspath(__file__))
-if current_dir not in sys.path:
-    sys.path.insert(0, current_dir)
+sys.path.append(current_dir)
 
 from scservo_sdk import *                      # Uses FTServo SDK library
-try:
-    from port_scanner import PortScanner
-    PORT_SCANNER_AVAILABLE = True
-except Exception:
-    PortScanner = None
-    PORT_SCANNER_AVAILABLE = False
+from port_scanner import PortScanner                     # Optional port scanner for auto-detection (if available)
+
+PORT_SCANNER_AVAILABLE = False  # Set to True if port_scanner module is available
 
 
 class FeetechController:

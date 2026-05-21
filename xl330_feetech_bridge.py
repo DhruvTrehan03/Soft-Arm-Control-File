@@ -47,7 +47,7 @@ SOURCE_CURRENT_COMMANDS_MA = {
     32: 500,
     33: 500,
 }
-SOURCE_CALIBRATION_FILE = DYNAMIXEL_DIR / "xl330_calibration.json"
+SOURCE_CALIBRATION_FILE = ROOT_DIR / "xl330_calibration.json"
 
 TARGET_CALIBRATION_FILE = ROOT_DIR / "feetech_calibration.json"
 DEFAULT_STATUS_INTERVAL = 0.02
@@ -138,7 +138,7 @@ def main() -> None:
     parser.add_argument(
         "--target-port",
         type=str,
-        default=None,
+        default="/dev/ttyCH341USB0",
         help="Feetech serial port (default: auto-detect)",
     )
     parser.add_argument(
@@ -156,7 +156,7 @@ def main() -> None:
     parser.add_argument(
         "--mapping",
         type=str,
-        default="",
+        default="32:1, 33:2, 31:3, 22:4, 23:5, 21:6, 11:7, 12:8, 13:9, 14:10, 2:11 ",
         help="Comma-separated source:target motor ID pairs, e.g. 11:1,12:2,13:3",
     )
     parser.add_argument(
