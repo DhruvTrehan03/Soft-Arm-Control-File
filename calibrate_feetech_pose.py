@@ -54,6 +54,14 @@ def print_positions(title, positions):
     print()
 
 
+def torque_for_motor(motor_id, default_torque):
+    if motor_id in (10, 11):
+        return 0
+    if motor_id in (6,7,8,9):
+        return  100
+    return default_torque
+
+
 def capture_id11_range(controller, motor_ids):
     if 11 not in motor_ids:
         return None
@@ -100,7 +108,7 @@ def main():
 
     args = parser.parse_args()
 
-    motor_ids = [int(x) for x in args.motors.split(',') if x.strip()] if args.exclude else []
+    motor_ids = [int(x) for x in args.motors.split(',') if x.strip()]
     excluded = [int(x) for x in args.exclude.split(',') if x.strip()] if args.exclude else []
 
     controller = FeetechController(port_name=args.port if args.port else None, baudrate=args.baud)
@@ -126,6 +134,8 @@ def main():
                 print(f"[INFO] Skipping mode/current setup for excluded motor {mid}")
                 continue
 
+            motor_torque = torque_for_motor(mid, args.torque)
+
             # Change mode to constant current (2)
             try:
                 ok = controller.change_mode(mid, 2)
@@ -142,7 +152,7 @@ def main():
 
             # Apply small holding torque/current (best-effort)
             try:
-                controller.set_torque(mid, args.torque)
+                controller.set_torque(mid, motor_torque)
             except Exception as exc:
                 print(f"[WARN] set_torque failed for {mid}: {exc}")
 
