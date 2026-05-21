@@ -54,12 +54,12 @@ def print_positions(title, positions):
     print()
 
 
-def capture_id2_range(controller, motor_ids):
-    if 2 not in motor_ids:
+def capture_id11_range(controller, motor_ids):
+    if 11 not in motor_ids:
         return None
 
-    print("[INFO] ID 2 range capture started")
-    print("[INFO] Move ID 2 through its full range, then press Enter to stop")
+    print("[INFO] ID 11 range capture started")
+    print("[INFO] Move ID 11 through its full range, then press Enter to stop")
 
     min_position = None
     max_position = None
@@ -67,7 +67,7 @@ def capture_id2_range(controller, motor_ids):
     try:
         # Non-blocking wait loop until Enter pressed
         while True:
-            res = controller.read_servo_state(2)
+            res = controller.read_servo_state(11)
             if res:
                 # single servo returns (pos, speed, load, current)
                 pos = res[0] if isinstance(res, (list, tuple)) else None
@@ -77,7 +77,7 @@ def capture_id2_range(controller, motor_ids):
                     if max_position is None or pos > max_position:
                         max_position = pos
 
-                print(f"\r[INFO] ID 2 current={pos} min={min_position} max={max_position}", end="", flush=True)
+                print(f"\r[INFO] ID 11 current={pos} min={min_position} max={max_position}", end="", flush=True)
 
             ready, _, _ = select.select([sys.stdin], [], [], 0.05)
             if ready:
@@ -85,7 +85,7 @@ def capture_id2_range(controller, motor_ids):
                 print()
                 return {"min": min_position, "max": max_position}
     except KeyboardInterrupt:
-        print("\n[INFO] ID 2 range capture cancelled")
+        print("\n[INFO] ID 11 range capture cancelled")
         return {"min": min_position, "max": max_position}
 
 
@@ -100,7 +100,7 @@ def main():
 
     args = parser.parse_args()
 
-    motor_ids = [int(x) for x in args.motors.split(',') if x.strip()]
+    motor_ids = [int(x) for x in args.motors.split(',') if x.strip()] if args.exclude else []
     excluded = [int(x) for x in args.exclude.split(',') if x.strip()] if args.exclude else []
 
     controller = FeetechController(port_name=args.port if args.port else None, baudrate=args.baud)
@@ -151,11 +151,11 @@ def main():
         input("[INFO] Press Enter when the arm is ready...")
         time.sleep(0.5)
 
-        # Optionally capture ID 2 range
-        id2_range = None
-        if 2 in active_motor_ids:
-            print("[INFO] Will capture ID 2 range interactively. Move it now when prompted.")
-            id2_range = capture_id2_range(controller, active_motor_ids)
+        # Optionally capture ID 11 range
+        id11_range = None
+        if 11 in active_motor_ids:
+            print("[INFO] Will capture ID 11 range interactively. Move it now when prompted.")
+            id11_range = capture_id11_range(controller, active_motor_ids)
 
         # Capture zero positions
         zero_positions = capture_positions(controller, active_motor_ids)
@@ -167,7 +167,7 @@ def main():
             "motor_ids": active_motor_ids,
             "captured_at_unix": time.time(),
             "zero_positions": zero_positions,
-            "id2_range": id2_range,
+            "id11_range": id11_range,
         }
 
         out_file = Path(args.output)

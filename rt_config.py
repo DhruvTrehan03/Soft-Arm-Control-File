@@ -66,7 +66,7 @@ PLOT_HISTORY_LENGTH = 1000  # Number of data points to keep in plots
 PLOT_UPDATE_INTERVAL = 0.1  # Plot update interval in seconds
 
 # Motor IDs (will be auto-detected, but you can specify expected ones)
-EXPECTED_MOTOR_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+EXPECTED_MOTOR_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 # Safety settings
 MAX_TORQUE_LIMIT = 1000  # Maximum torque limit (0-1000)
