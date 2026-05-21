@@ -78,7 +78,7 @@ class FeetechController:
                 # Fallback to common ports
                 import platform
                 if platform.system() == 'Linux':
-                    self.port_name = '/dev/ttyUSB0'
+                    self.port_name = '/dev/ttyCH341USB0'
                 else:
                     self.port_name = 'COM4'
         except Exception as e:
@@ -86,7 +86,7 @@ class FeetechController:
             # Fallback to common ports
             import platform
             if platform.system() == 'Linux':
-                self.port_name = '/dev/ttyUSB0'
+                self.port_name = '/dev/ttyCH341USB0'
             else:
                 self.port_name = 'COM4'
     
