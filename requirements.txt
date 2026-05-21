@@ -1,0 +1,16 @@
+# Requirements for HardwareControl package on Raspberry Pi
+# Install with: pip3 install -r requirements.txt
+
+# Core dependencies
+numpy>=1.21.0
+pyserial>=3.5
+typing-extensions>=4.0.0
+
+# ROS2 dependencies (if using ROS2)
+# rclpy>=0.1.0
+# sensor_msgs>=0.1.0
+# std_msgs>=0.1.0
+# std_srvs>=0.1.0
+
+# Optional: for better performance
+# pyserial-asyncio>=0.6.0

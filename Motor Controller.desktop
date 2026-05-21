@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Motor Controller
+Comment=Run Motor Controller Node
+Exec=gnome-terminal --title="Motor Controller" -- bash -c "cd '/home/softroboticslab/Downloads/Soft Arm Control File' && source /opt/ros/rolling/setup.bash && python3 motor_controller_node.py; exec bash"
+Icon=applications-system
+Terminal=true
+Categories=System;Hardware;
