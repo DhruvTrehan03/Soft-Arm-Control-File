@@ -315,7 +315,7 @@ def main() -> None:
         while True:
             loop_start = time.perf_counter()
             source_positions = capture_source_positions(source_motors)
-
+            print(f"\r[INFO] Captured source positions: " + ", ".join(f"ID {motor_id}={position}" for motor_id, position in source_positions.items()), end="", flush=True)
             target_commands = {}
             status_lines = []
             for index, (source_id, target_id) in enumerate(joint_pairs, start=1):
